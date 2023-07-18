@@ -1,0 +1,27 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+    <ApplicationIcon>assets\qrcode.ico</ApplicationIcon>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="image_placeholder2.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="assets\qrcode.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="QRCoder" Version="1.4.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="image_placeholder2.png" />
+  </ItemGroup>
+
+</Project>
