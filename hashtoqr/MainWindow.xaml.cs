@@ -120,7 +120,21 @@ namespace hashtoqr
         {
             if (txt_file_path.Text != "")
             {
+                if (!File.Exists(txt_file_path.Text))
+                    return;
+                int numberOfItem = lv_listfile.Items.Count;
+                for (int i = 0; i <numberOfItem; i++)
+                {
+                    var item = lv_listfile.Items[i] as FileItem;
+                    if (item.Path == txt_file_path.Text)
+                    {
+                        GenQR(txt_file_path.Text);
+                        return;
+                    }
+                }
+                lv_listfile.Items.Add(new FileItem { Index = numberOfItem + 1, Path = txt_file_path.Text });
                 GenQR(txt_file_path.Text);
+                return;
             }    
         }
 
@@ -155,6 +169,18 @@ namespace hashtoqr
             if (fileName == null) return;
             (sender as TextBox).Text = fileName;
         }
+
+        private void ListViewItem_PreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            var item = sender as ListViewItem;
+            if (item == null) return;
+            var fi = item.DataContext as FileItem;
+            txt_file_path.Text = fi.Path;
+        }
     }
-    
+    public class FileItem
+    {
+        public int Index { get; set; }
+        public string Path { get; set; }
+    }
 }

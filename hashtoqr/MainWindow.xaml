@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:hashtoqr"
         mc:Ignorable="d"
-        Title="Hash2QR" Height="463" Width="648" ResizeMode="NoResize">
+        Title="Hash2QR" Height="463" Width="661" ResizeMode="NoResize">
     <Grid Width="NaN" Height="453" VerticalAlignment="Top">
         <TextBox x:Name="txt_file_path" Height="20" Margin="16,32,121,0" TextWrapping="NoWrap"  VerticalAlignment="Top" AllowDrop="True" PreviewDragEnter="txt_file_path_Drop" PreviewDrop="txt_file_path_PreviewDrop"  TextChanged="txt_file_path_TextChanged"/>
         <Border Background="GhostWhite" BorderBrush="Gainsboro" BorderThickness="1" HorizontalAlignment="Right" Height="300" Margin="0,68,16,0" VerticalAlignment="Top" Width="300">
@@ -16,6 +16,19 @@
         <RadioButton x:Name="radio_md5" GroupName="hash_type" Content="MD5" HorizontalAlignment="Right" Margin="0,384,90,0" VerticalAlignment="Top" IsChecked="True" Checked="radio_md5_Checked"/>
         <RadioButton x:Name="radio_sha1" GroupName="hash_type" Content="SHA1" HorizontalAlignment="Right" Margin="0,384,16,0" VerticalAlignment="Top" Checked="radio_sha1_Checked"/>
         <TextBlock HorizontalAlignment="Right" Margin="0,404,16,0" TextWrapping="Wrap" Text="Created by: MonsterCat" VerticalAlignment="Top" Width="129"/>
+        <ListView HorizontalAlignment="Left" Height="300" Margin="16,68,0,0" VerticalAlignment="Top" Width="300" x:Name="lv_listfile" ScrollViewer.VerticalScrollBarVisibility="Auto" >
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="#" Width="Auto" DisplayMemberBinding="{Binding Index}"/>
+                    <GridViewColumn Header="Path" Width="Auto" DisplayMemberBinding="{Binding Path}"/>
+                </GridView>
+            </ListView.View>
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <EventSetter Event="PreviewMouseLeftButtonUp" Handler="ListViewItem_PreviewMouseLeftButtonUp"/>
+                </Style>
+            </ListView.ItemContainerStyle>
+        </ListView>
 
     </Grid>
 </Window>
