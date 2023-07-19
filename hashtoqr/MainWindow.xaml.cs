@@ -141,6 +141,20 @@ namespace hashtoqr
                 GenQR(txt_file_path.Text);
             }    
         }
+
+        private void txt_file_path_Drop(object sender, DragEventArgs e)
+        {
+           
+        }
+
+        private void txt_file_path_PreviewDrop(object sender, DragEventArgs e)
+        {
+            var fileNames = (string[])e.Data.GetData(DataFormats.FileDrop);
+            if (fileNames == null) return;
+            var fileName = fileNames.FirstOrDefault();
+            if (fileName == null) return;
+            (sender as TextBox).Text = fileName;
+        }
     }
     
 }
