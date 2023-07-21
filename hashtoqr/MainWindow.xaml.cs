@@ -17,6 +17,7 @@ using System.Security.Cryptography;
 using System.IO;
 using QRCoder;
 using System.Drawing;
+using System.Collections.ObjectModel;
 
 namespace hashtoqr
 {
@@ -27,9 +28,11 @@ namespace hashtoqr
     public partial class MainWindow : Window
     {
         private bool isMD5 = true;
+        private ObservableCollection<FileItem> obs = new ObservableCollection<FileItem>();
         public MainWindow()
         {
             InitializeComponent();
+            lv_listfile.ItemsSource= obs;
         }
         private String getMD5File(string filepath)
         {
@@ -122,17 +125,17 @@ namespace hashtoqr
             {
                 if (!File.Exists(txt_file_path.Text))
                     return;
-                int numberOfItem = lv_listfile.Items.Count;
+                int numberOfItem = obs.Count;
                 for (int i = 0; i <numberOfItem; i++)
                 {
-                    var item = lv_listfile.Items[i] as FileItem;
+                    var item = obs[i] as FileItem;
                     if (item.Path == txt_file_path.Text)
                     {
                         GenQR(txt_file_path.Text);
                         return;
                     }
                 }
-                lv_listfile.Items.Add(new FileItem { Index = numberOfItem + 1, Path = txt_file_path.Text });
+                obs.Add(new FileItem { Index = numberOfItem + 1, Path = txt_file_path.Text, IsChecked = false});
                 GenQR(txt_file_path.Text);
                 return;
             }    
@@ -182,5 +185,7 @@ namespace hashtoqr
     {
         public int Index { get; set; }
         public string Path { get; set; }
+
+        public bool IsChecked { get; set; }
     }
 }
